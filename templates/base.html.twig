@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+
+    <title>Jeux-vidéo Blog</title>
+</head>
+<body>
+<header>
+    <ul>
+        <li><img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CD_autolev_crop.jpg/200px-CD_autolev_crop.jpg" alt=""></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li>
+            {#                {{ form_start(form) }}#}
+            {#                {{ form_label(form.email) }}#}
+            {#                {{ form_widget(form.email) }}#}
+
+            {#                {{ form_label(form.password) }}#}
+            {#                {{ form_widget(form.password) }}#}
+
+            {#                {{ form_widget(form.submit) }}#}
+            {#                {{ form_end(form) }}#}
+        </li>
+    </ul>
+</header>
+<main>
+    {% block main %}
+
+    {% endblock %}
+</main>
+<footer>
+
+</footer>
+<script src="{{ asset('assets/js/script.js') }}"></script>
+</body>
+</html>

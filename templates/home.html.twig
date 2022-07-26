@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    {% for game in games.results %}
+        <article>
+            <h2>{{ game.name }}</h2>
+            <img style="width: 25vw" src="{{ game.background_image }}" alt="">
+            {% for tag in game.tags |slice(5,10) %}
+                {% if tag.language is same as ('eng') %}
+                    <p>{{ tag.name }}</p>
+                {% endif %}
+            {% endfor%}
+            <p>sorti le {{ game.released |date('d-M-y') }}</p>
+            {% if game.metacritic %}
+                <p>note métacritic {{ game.metacritic }}</p>
+            {% endif %}
+        </article>
+    {% endfor %}
+
+
+{% endblock %}
+
+{#$games = $gameApi->getGames();#}
+{#dd($gameApi->getGames());#}
