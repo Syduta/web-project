@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class SignInController extends AbstractController
 {
@@ -10,10 +16,10 @@ class SignInController extends AbstractController
      * @Route("/sign-in",name="sign-in")
      */
 
-    public function signIn(){
-        $user = new user();
-        $user->setRole(["ROLE_USER"]);
-        $form = $this->createForm(userType::class, $user);
+    public function signIn(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager){
+        $user = new User();
+        $user->setRoles(['ROLE_USER']);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()&&$form->isValid()){
@@ -22,10 +28,12 @@ class SignInController extends AbstractController
             $user->setPassword($hashedPassword);
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->redirectToRoute('home');
+            $this->addFlash('success','Compte créé');
+            return $this->redirectToRoute("home");
         }
         return $this->render('connexion/sign-in.html.twig', [
             'form' => $form->createView(),
         ]);
+
     }
 }
