@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,6 +34,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Actuality::class)]
+    private Collection $actualities;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Forum::class)]
+    private Collection $forums;
+
+    public function __construct()
+    {
+        $this->actualities = new ArrayCollection();
+        $this->forums = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +137,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Actuality>
+     */
+    public function getActualities(): Collection
+    {
+        return $this->actualities;
+    }
+
+    public function addActuality(Actuality $actuality): self
+    {
+        if (!$this->actualities->contains($actuality)) {
+            $this->actualities->add($actuality);
+            $actuality->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActuality(Actuality $actuality): self
+    {
+        if ($this->actualities->removeElement($actuality)) {
+            // set the owning side to null (unless already changed)
+            if ($actuality->getUser() === $this) {
+                $actuality->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Forum>
+     */
+    public function getForums(): Collection
+    {
+        return $this->forums;
+    }
+
+    public function addForum(Forum $forum): self
+    {
+        if (!$this->forums->contains($forum)) {
+            $this->forums->add($forum);
+            $forum->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForum(Forum $forum): self
+    {
+        if ($this->forums->removeElement($forum)) {
+            // set the owning side to null (unless already changed)
+            if ($forum->getUser() === $this) {
+                $forum->setUser(null);
+            }
+        }
 
         return $this;
     }
