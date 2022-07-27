@@ -8,6 +8,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class GamesController extends AbstractController
 {
     /**
+     * @Route("/games",name="games")
+     */
+
+    public function games(GameApi $gameApi){
+        $games = $gameApi->getGames();
+//        dd($gameApi->getGames());
+        return $this->render('front/games.html.twig',[
+            'games'=>$games
+        ]);
+    }
+
+
+    /**
      * @Route("/game/{id}",name="game")
      */
 

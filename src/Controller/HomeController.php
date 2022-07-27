@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     public function home(GameApi $gameApi){
 
 //        dd($gameApi->getGames());
-        $games = $gameApi->getGames();
+        $games = $gameApi->getGamesHome();
 
         return $this->render('home.html.twig',[
             'games'=>$games

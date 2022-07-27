@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Actuality;
+use App\Entity\Forum;
 use App\Entity\User;
 use App\Form\ActualityType;
+use App\Form\ForumType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +27,7 @@ class AdminController extends AbstractController
      * @Route("/admin/new/{id}",name="admin-new")
      */
 
-    public function adminNew($id,){
+    public function adminNew($id){
         return $this->render('admin/new.html.twig');
     }
 
@@ -78,5 +80,24 @@ class AdminController extends AbstractController
         }
         return $this->render("/admin/new-actu.html.twig",
         ['form'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/new-forum",name="admin-new-forum")
+     */
+
+    public function newForum(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger){
+        $forum = new Forum();
+        $forum->setUser($this->getUser());
+        $form = $this->createForm(ForumType::class, $forum);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()&&$form->isValid()){
+            $entityManager->persist($forum);
+            $entityManager->flush();
+            $this->addFlash('success','forum crée');
+        }
+        return $this->render("/admin/new-forum.html.twig",
+            ['form'=>$form->createView()]);
     }
 }

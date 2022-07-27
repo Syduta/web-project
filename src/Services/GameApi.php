@@ -14,12 +14,12 @@ class GameApi
         $this->httpClient = $httpClient;
     }
 
-    public function getGames()
+    public function getGamesHome()
     {
 
         $response = $this->httpClient->request(
             'GET',
-            'https://api.rawg.io/api/games?key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
+            'https://api.rawg.io/api/games?page_size=9&key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
         );
 
         return $response->toArray();
@@ -38,6 +38,26 @@ class GameApi
             'GET',
             'https://api.rawg.io/api/games/'.$id.'/additions?key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
         );
+        return $response->toArray();
+    }
+
+    public function getGames()
+    {
+
+        $response = $this->httpClient->request(
+            'GET',
+            'https://api.rawg.io/api/games?page_size=40&key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
+        );
+
+        return $response->toArray();
+    }
+
+    public function searchGames($search){
+        $response = $this->httpClient->request(
+            'GET',
+            'https://api.rawg.io/api/games?search='.$search.'&key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
+        );
+
         return $response->toArray();
     }
 

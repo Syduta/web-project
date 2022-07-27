@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    {% for game in games.results %}
+        <article>
+            <a href="{{ path('game',{'id':game.id}) }}">
+                <h2>{{ game.name }}</h2>
+                <img style="width: 25vw" src="{{ game.background_image }}" alt="">
+            </a>
+        </article>
+    {% endfor %}
+
+
+{% endblock %}

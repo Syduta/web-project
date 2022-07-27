@@ -17,7 +17,7 @@
         <li><a href="{{ path('sign-in') }}">Sign-in</a></li>
         <li><a href="{{ path('log-in') }}">Log-in</a></li>
         <li><a href="{{ path('log-out') }}">Log-out</a></li></li>
-        <li></li>
+        <li><a href="{{ path('games') }}">Games</a></li>
         <li>
             {#                {{ form_start(form) }}#}
             {#                {{ form_label(form.email) }}#}
@@ -28,6 +28,11 @@
 
             {#                {{ form_widget(form.submit) }}#}
             {#                {{ form_end(form) }}#}
+        </li>
+        <li><form action="{{ path('find') }}" method="get">
+                <input type="text" name="search" placeholder="Search">
+                <input type="submit">
+            </form>
         </li>
     </ul>
     <h3>Welcome {% if app.user %} {{ app.user.pseudo }} {% endif %}</h3>
