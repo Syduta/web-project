@@ -76,7 +76,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted()&&$form->isValid()){
             $entityManager->persist($actu);
             $entityManager->flush();
-            $this->addFlash('success','actualité ajoutée');
+            $this->addFlash('success','news added');
         }
         return $this->render("/admin/new-actu.html.twig",
         ['form'=>$form->createView()]);
@@ -95,7 +95,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted()&&$form->isValid()){
             $entityManager->persist($forum);
             $entityManager->flush();
-            $this->addFlash('success','forum crée');
+            $this->addFlash('success','forum created');
         }
         return $this->render("/admin/new-forum.html.twig",
             ['form'=>$form->createView()]);

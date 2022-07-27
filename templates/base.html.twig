@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 
-    <title>Jeux-vidéo Blog</title>
+    <title>Video-Games Blog</title>
 </head>
 <body>
 {% block header %}
@@ -35,7 +35,6 @@
             </form>
         </li>
     </ul>
-    <h3>Welcome {% if app.user %} {{ app.user.pseudo }} {% endif %}</h3>
     {% for message in app.flashes('success') %}
         <div>
             <h3>{{ message }}</h3>

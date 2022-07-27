@@ -11,9 +11,9 @@
                 <p>{{ tag.name }}</p>
             {% endif %}
         {% endfor%}
-        <p>date of release {{ game.released |date('d-M-y') }}</p>
+        <p>Released in {{ game.released |date('d-M-y') }}</p>
         {% if game.metacritic %}
-            <p>metacritic rank {{ game.metacritic }}</p>
+            <p>Metacritic note {{ game.metacritic }}</p>
         {% endif %}
     </article>
 

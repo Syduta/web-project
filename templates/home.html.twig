@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-
+    <h3>Welcome {% if app.user %} {{ app.user.pseudo }} on this place where we love video games {% endif %}</h3>
     {% for game in games.results %}
         <article>
             <a href="{{ path('game',{'id':game.id}) }}">
@@ -13,9 +13,9 @@
                     <p>{{ tag.name }}</p>
                 {% endif %}
             {% endfor%}
-            <p>sorti le {{ game.released |date('d-M-y') }}</p>
+            <p>released in {{ game.released |date('d-M-y') }}</p>
             {% if game.metacritic %}
-                <p>note métacritic {{ game.metacritic }}</p>
+                <p>Metacritic note {{ game.metacritic }}</p>
             {% endif %}
         </article>
     {% endfor %}
