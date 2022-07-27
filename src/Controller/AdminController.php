@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Actuality;
+use App\Entity\User;
+use App\Form\ActualityType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
@@ -53,5 +59,24 @@ class AdminController extends AbstractController
 
     public function adminForum($id,){
         return $this->render('admin/forum.html.twig');
+    }
+
+    /**
+     * @Route("/admin/new-actu",name="admin-new_actu")
+     */
+
+    public function newActu(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger){
+        $actu = new Actuality();
+        $actu->setUser($this->getUser());
+        $form = $this->createForm(ActualityType::class, $actu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()&&$form->isValid()){
+            $entityManager->persist($actu);
+            $entityManager->flush();
+            $this->addFlash('success','actualité ajoutée');
+        }
+        return $this->render("/admin/new-actu.html.twig",
+        ['form'=>$form->createView()]);
     }
 }

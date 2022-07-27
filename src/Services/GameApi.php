@@ -25,5 +25,20 @@ class GameApi
         return $response->toArray();
     }
 
+    public function getGame($id){
+        $response = $this->httpClient->request(
+            'GET',
+            'https://api.rawg.io/api/games/'.$id.'?key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
+        );
+        return $response->toArray();
+    }
+
+    public function getGameDlc($id){
+        $response = $this->httpClient->request(
+            'GET',
+            'https://api.rawg.io/api/games/'.$id.'/additions?key=7146302c5fd744509641167c9814fc5e&dates=2019-09-01,2019-09-30&platforms=18,1,7'
+        );
+        return $response->toArray();
+    }
 
 }

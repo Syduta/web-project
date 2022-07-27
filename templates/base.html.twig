@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,9 +14,9 @@
 <header>
     <ul>
         <li><a href="{{ path('home') }}"><img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CD_autolev_crop.jpg/200px-CD_autolev_crop.jpg" alt=""></a></li>
-        <li><a href="{{ path('sign-in') }}">S'inscrire</a></li>
-        <li><a href="{{ path('log-in') }}">Se connecter</a></li>
-        <li><a href="{{ path('log-out') }}">Se déconnecter</a></li></li>
+        <li><a href="{{ path('sign-in') }}">Sign-in</a></li>
+        <li><a href="{{ path('log-in') }}">Log-in</a></li>
+        <li><a href="{{ path('log-out') }}">Log-out</a></li></li>
         <li></li>
         <li>
             {#                {{ form_start(form) }}#}
@@ -30,7 +30,7 @@
             {#                {{ form_end(form) }}#}
         </li>
     </ul>
-    <h3>Bienvenue {{ app.user.pseudo }}</h3>
+    <h3>Welcome {% if app.user %} {{ app.user.pseudo }} {% endif %}</h3>
     {% for message in app.flashes('success') %}
         <div>
             <h3>{{ message }}</h3>
