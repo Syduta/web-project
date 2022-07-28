@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+
+
+    <article>
+        <h2>{{ forum.title }}</h2>
+        {% if forum.picture %}
+            <img src="{{ forum.picture }}" alt="picture of the subject">
+        {% endif %}
+        <p>{{ forum.content }}</p>
+    </article>
+
+
+{% endblock %}

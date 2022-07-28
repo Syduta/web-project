@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    {% for forum in forums %}
+
+        <article>
+            <a href="{{ path('forum',{'id':forum.id}) }}">
+            <h2>{{ forum.title }}</h2>
+            {% if forum.picture %}
+                <img src="{{ forum.picture }}" alt="picture of the subject">
+            {% endif %}
+            </a>
+            <p>{{ forum.content }}</p>
+        </article>
+
+    {% endfor %}
+
+{% endblock %}

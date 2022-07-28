@@ -11,5 +11,29 @@
         </article>
     {% endfor %}
 
+    {% for new in news %}
+        <article>
+            <a href="{{ path('new',{'id':new.id}) }}">
+                <h2>{{ new.title }}</h2>
+                {% if new.picture %}
+                    <img src="{{ new.picture }}" alt="picture of the subject">
+                {% endif %}
+            </a>
+            <p>{{ new.content }}</p>
+        </article>
+    {% endfor %}
+
+    {% for forum in forums %}
+        <article>
+            <a href="{{ path('forum',{'id':forum.id}) }}">
+                <h2>{{ forum.title }}</h2>
+                {% if forum.picture %}
+                    <img src="{{ forum.picture }}" alt="picture of the subject">
+                {% endif %}
+            </a>
+            <p>{{ forum.content }}</p>
+        </article>
+    {% endfor %}
+
 
 {% endblock %}

@@ -28,7 +28,7 @@ class SignInController extends AbstractController
             $user->setPassword($hashedPassword);
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('success','Compte créé');
+            $this->addFlash('success','Account created');
             return $this->redirectToRoute("home");
         }
         return $this->render('connexion/sign-in.html.twig', [

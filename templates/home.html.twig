@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <h3>Welcome {% if app.user %} {{ app.user.pseudo }} on this place where we love video games {% endif %}</h3>
+    <h1>Welcome {% if app.user %} {{ app.user.pseudo }} {% endif %} on this place where we love video-games</h1>
     {% for game in games.results %}
         <article>
             <a href="{{ path('game',{'id':game.id}) }}">

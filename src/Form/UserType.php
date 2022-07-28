@@ -20,7 +20,7 @@ class UserType extends AbstractType
 //            ->add('roles')
             ->add('password',RepeatedType::class,[
                 'type'=>PasswordType::class,
-                'invalid_message'=>'Les mots de passe doivent être similaire'
+                'invalid_message'=>'Passwords should be the same'
             ])
             ->add('email')
             ->add('picture')

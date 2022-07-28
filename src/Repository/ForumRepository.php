@@ -39,6 +39,15 @@ class ForumRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchByWord($search){
+        $qb = $this->createQueryBuilder('forum');
+        $query = $qb->select('forum')
+            ->where('forum.title LIKE :search')
+            ->setParameter('search','%'.$search.'%')
+            ->getQuery();
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Forum[] Returns an array of Forum objects
 //     */

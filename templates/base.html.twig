@@ -16,8 +16,10 @@
         <li><a href="{{ path('home') }}"><img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CD_autolev_crop.jpg/200px-CD_autolev_crop.jpg" alt=""></a></li>
         <li><a href="{{ path('sign-in') }}">Sign-in</a></li>
         <li><a href="{{ path('log-in') }}">Log-in</a></li>
-        <li><a href="{{ path('log-out') }}">Log-out</a></li></li>
+        <li><a href="{{ path('log-out') }}">Log-out</a></li>
+        <li><a href="{{ path('news') }}">News</a></li>
         <li><a href="{{ path('games') }}">Games</a></li>
+        <li><a href="{{ path('forums') }}">Forums</a></li>
         <li>
             {#                {{ form_start(form) }}#}
             {#                {{ form_label(form.email) }}#}
@@ -30,8 +32,8 @@
             {#                {{ form_end(form) }}#}
         </li>
         <li><form action="{{ path('find') }}" method="get">
-                <input type="text" name="search" placeholder="Search">
-                <input type="submit">
+                <input type="text" name="search" placeholder="">
+                <input type="submit" value="Search">
             </form>
         </li>
     </ul>

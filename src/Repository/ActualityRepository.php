@@ -39,6 +39,15 @@ class ActualityRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchByWord($search){
+        $qb = $this->createQueryBuilder('a');
+        $query = $qb->select('a')
+            ->where('a.title LIKE :search')
+            ->setParameter('search','%'.$search.'%')
+            ->getQuery();
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Actuality[] Returns an array of Actuality objects
 //     */

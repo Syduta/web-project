@@ -17,9 +17,22 @@ class SearchController extends AbstractController
      * @Route("/find",name="find")
      */
 
-    public function search(Request $request,GameApi $gameApi){
+    public function search(Request $request,GameApi $gameApi, ActualityRepository $actualityRepository, ForumRepository $forumRepository){
         $search = $request->query->get('search');
+        $news = $actualityRepository->searchByWord($search);
+        $forums = $forumRepository->searchByWord($search);
         $gameSearch = $gameApi->searchGames($search);
-        return $this->render("find.html.twig",['games'=>$gameSearch]);
+
+
+        if((!empty($gameSearch)) || (!empty($news)) || (!empty($forums))){
+
+        return $this->render("find.html.twig",[
+            'forums'=>$forums,
+            'news'=>$news,
+            'games'=>$gameSearch
+            ]);
+        }else{
+            $this->addFlash('error', 'Your search gave nothing');
+        }
     }
 }

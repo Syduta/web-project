@@ -19,7 +19,7 @@ class LogInController extends AbstractController
 
         // last username entered by the user
         $pseudo = $authenticationUtils->getLastUsername();
-        $this->addFlash('success','Connecté');
+        $this->addFlash('success','Connected');
 
         return $this->render('connexion/log-in.html.twig', [
             'pseudo' => $pseudo,
