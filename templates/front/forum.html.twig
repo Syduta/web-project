@@ -9,6 +9,12 @@
         {% endif %}
         <p>{{ forum.content }}</p>
     </article>
-
-
+    {{ form(form) }}
+    {% for subject in forum.subjects %}
+    <article>
+        <h3>{{ subject.title }}</h3>
+        <p>{{ subject.content }}</p>
+        <p>subject opened the {{ subject.date|date('M-d-y') }}</p>
+    </article>
+    {% endfor %}
 {% endblock %}
