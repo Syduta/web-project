@@ -9,6 +9,10 @@
             {% endif %}
         <p>{{ new.content }}</p>
     </article>
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ path('admin-delete-actu',{'id':new.id}) }}">Delete actu</a></li>
+        <li><a href="{{ path('admin-update-actu',{'id':new.id}) }}">Update actu</a></li>
+    {% endif %}
 
 
 {% endblock %}

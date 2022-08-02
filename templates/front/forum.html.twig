@@ -16,5 +16,9 @@
         <p>{{ subject.content }}</p>
         <p>subject opened the {{ subject.date|date('M-d-y') }}</p>
     </article>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('admin-delete-forum',{'id':forum.id}) }}">Delete forum</a></li>
+            <li><a href="{{ path('admin-update-forum',{'id':forum.id}) }}">Update forum</a></li>
+        {% endif %}
     {% endfor %}
 {% endblock %}

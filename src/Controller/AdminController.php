@@ -54,6 +54,23 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/update-actu/{id}",name="admin-update-actu")
+     */
+
+    public function updateActu($id, ActualityRepository $actualityRepository, EntityManagerInterface $entityManager, Request $request){
+        $actu = $actualityRepository->find($id);
+        $form = $this->createForm(ActualityType::class,$actu);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($actu);
+            $entityManager->flush();
+            $this->addFlash('success','new updated');
+        }
+        return $this->render("admin/update-actu.html.twig",['form'=>$form->createView()]);
+    }
+
+    /**
      * @Route("/admin/new-forum",name="admin-new-forum")
      */
 
@@ -86,5 +103,22 @@ class AdminController extends AbstractController
         }else{
             return$this->redirectToRoute('forums');
         }
+    }
+
+    /**
+     * @Route("/admin/update-forum/{id}",name="admin-update-forum")
+     */
+
+    public function updateForum($id, ForumRepository $forumRepository, EntityManagerInterface $entityManager, Request $request){
+        $forum = $forumRepository->find($id);
+        $form = $this->createForm(ForumType::class,$forum);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&&$form->isValid()){
+            $entityManager->persist($forum);
+            $entityManager->flush();
+            $this->addFlash('success','forum updated');
+        }
+        return $this->render("admin/update-forum.html.twig",['form'=>$form->createView()]);
     }
 }
