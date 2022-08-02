@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Subject;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\SubjectType;
 use App\Form\UserType;
 use App\Repository\ActualityRepository;
+use App\Repository\CommentRepository;
 use App\Repository\ForumRepository;
 use App\Repository\SubjectRepository;
 use App\Repository\UserRepository;
@@ -67,6 +70,30 @@ class FrontController extends AbstractController
             ]);
     }
 
+    /**
+     * @Route("/comment/{id}",name="comment")
+     */
+
+    public function comment($id, EntityManagerInterface $entityManager, Request $request, SubjectRepository $subjectRepository, CommentRepository $commentRepository)
+    {
+        $subject = $subjectRepository->find($id);
+        $comment = new Comment();
+        $comment->setUser($this->getUser());
+        $comment->setSubject($subject);
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            $this->addFlash('success', 'comment added');
+            $this->redirectToRoute('forum');
+        }
+        return $this->render('front/comment.html.twig',[
+            'subject'=>$subject,
+            'form'=>$form->createView(),
+        ]);
+    }
     /**
      * @Route("/update-profile",name="update-profile")
      */

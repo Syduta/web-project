@@ -15,10 +15,18 @@
         <h3>{{ subject.title }}</h3>
         <p>{{ subject.content }}</p>
         <p>subject opened the {{ subject.date|date('M-d-y') }}</p>
+        <li><a href="{{ path('comment',{'id':subject.id}) }}">Add a comment</a></li>
     </article>
-        {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="{{ path('admin-delete-forum',{'id':forum.id}) }}">Delete forum</a></li>
-            <li><a href="{{ path('admin-update-forum',{'id':forum.id}) }}">Update forum</a></li>
-        {% endif %}
+    {% for comment in subject.comment %}
+    <article>
+        <h4>{{ comment.comment }}</h4>
+        <p>by {{ comment.user.pseudo }}</p>
+        <p>comment added the {{ comment.date|date('M-d-y') }}</p>
+    </article>
+    {% endfor %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ path('admin-delete-forum',{'id':forum.id}) }}">Delete forum</a></li>
+        <li><a href="{{ path('admin-update-forum',{'id':forum.id}) }}">Update forum</a></li>
+    {% endif %}
     {% endfor %}
 {% endblock %}
