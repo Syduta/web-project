@@ -7,6 +7,8 @@ use App\Entity\Forum;
 use App\Entity\User;
 use App\Form\ActualityType;
 use App\Form\ForumType;
+use App\Repository\ActualityRepository;
+use App\Repository\ForumRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,56 +17,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
-    /**
-     * @Route("/admin/news",name="admin-news")
-     */
-
-    public function adminNews(){
-        return $this->render('admin/news.html.twig');
-    }
 
     /**
-     * @Route("/admin/new/{id}",name="admin-new")
-     */
-
-    public function adminNew($id){
-        return $this->render('admin/new.html.twig');
-    }
-
-    /**
-     * @Route("/admin/games",name="admin-games")
-     */
-
-    public function adminGames(){
-        return $this->render('admin/games.html.twig');
-    }
-
-    /**
-     * @Route("/admin/game/{id}",name="admin-game")
-     */
-
-    public function adminGame($id){
-        return $this->render('admin/game.html.twig');
-    }
-
-    /**
-     * @Route("/admin/forums",name="admin-forums")
-     */
-
-    public function adminForums(){
-        return $this->render('admin/forums.html.twig');
-    }
-
-    /**
-     * @Route("/admin/forum/{id}",name="admin-forum")
-     */
-
-    public function adminForum($id,){
-        return $this->render('admin/forum.html.twig');
-    }
-
-    /**
-     * @Route("/admin/new-actu",name="admin-new_actu")
+     * @Route("/admin/new-actu",name="admin-new-actu")
      */
 
     public function newActu(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger){
@@ -80,6 +35,22 @@ class AdminController extends AbstractController
         }
         return $this->render("/admin/new-actu.html.twig",
         ['form'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/delete-actu/{id}",name="admin-delete-actu")
+     */
+
+    public function deleteActu($id, ActualityRepository $actualityRepository, EntityManagerInterface $entityManager){
+        $actu = $actualityRepository->find($id);
+        if(!is_null($actu)){
+            $entityManager->remove($actu);
+            $entityManager->flush();
+            $this->addFlash('success','actuality deleted');
+            return$this->redirectToRoute('news');
+        }else{
+            return$this->redirectToRoute('news');
+        }
     }
 
     /**
@@ -99,5 +70,21 @@ class AdminController extends AbstractController
         }
         return $this->render("/admin/new-forum.html.twig",
             ['form'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/delete-forum/{id}",name="admin-delete-forum")
+     */
+
+    public function deleteForum($id, ForumRepository $forumRepository, EntityManagerInterface $entityManager){
+        $forum = $forumRepository->find($id);
+        if(!is_null($forum)){
+            $entityManager->remove($forum);
+            $entityManager->flush();
+            $this->addFlash('success','forum deleted');
+            return$this->redirectToRoute('forums');
+        }else{
+            return$this->redirectToRoute('forums');
+        }
     }
 }

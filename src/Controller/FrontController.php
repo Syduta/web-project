@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Subject;
+use App\Entity\User;
 use App\Form\SubjectType;
+use App\Form\UserType;
 use App\Repository\ActualityRepository;
 use App\Repository\ForumRepository;
 use App\Repository\SubjectRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,4 +67,20 @@ class FrontController extends AbstractController
             ]);
     }
 
+    /**
+     * @Route("/update-profile",name="update-profile")
+     */
+
+    public function updateProfile( Request $request, EntityManagerInterface $entityManager){
+        $user= $this->getUser();
+        $form= $this->createForm(UserType::class,$user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&&$form->isValid()){
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success','profile updated');
+        }
+        return $this->render("front/update-profile.html.twig",['form'=>$form->createView()]);
+    }
 }

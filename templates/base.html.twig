@@ -16,26 +16,20 @@
         <li><a href="{{ path('home') }}"><img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CD_autolev_crop.jpg/200px-CD_autolev_crop.jpg" alt=""></a></li>
         <li><a href="{{ path('sign-in') }}">Sign-in</a></li>
         <li><a href="{{ path('log-in') }}">Log-in</a></li>
+        <li><a href="{{ path('update-profile')}}">Update profile</a></li>
         <li><a href="{{ path('log-out') }}">Log-out</a></li>
         <li><a href="{{ path('news') }}">News</a></li>
         <li><a href="{{ path('games') }}">Games</a></li>
         <li><a href="{{ path('forums') }}">Forums</a></li>
-        <li>
-            {#                {{ form_start(form) }}#}
-            {#                {{ form_label(form.email) }}#}
-            {#                {{ form_widget(form.email) }}#}
-
-            {#                {{ form_label(form.password) }}#}
-            {#                {{ form_widget(form.password) }}#}
-
-            {#                {{ form_widget(form.submit) }}#}
-            {#                {{ form_end(form) }}#}
-        </li>
         <li><form action="{{ path('find') }}" method="get">
                 <input type="text" name="search" placeholder="">
                 <input type="submit" value="Search">
             </form>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('admin-new-actu') }}">admin create actu</a></li>
+            <li><a href="{{ path('admin-new-forum') }}">admin create forum</a></li>
+        {% endif %}
     </ul>
     {% for message in app.flashes('success') %}
         <div>
