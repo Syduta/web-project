@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class FrontController extends AbstractController
@@ -104,12 +105,20 @@ class FrontController extends AbstractController
      * @Route("/update-profile",name="update-profile")
      */
 
-    public function updateProfile( Request $request, EntityManagerInterface $entityManager){
+    public function updateProfile( Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger){
         $user= $this->getUser();
         $form= $this->createForm(UserType::class,$user);
         $form->handleRequest($request);
 
         if($form->isSubmitted()&&$form->isValid()){
+            $picture = $form->get('picture')->getData();
+            $originalFileName = pathinfo($picture->getClientOriginalName(),PATHINFO_FILENAME);
+            $safeFileName = $slugger->slug($originalFileName);
+            $newFileName = $safeFileName.'-'.uniqid().'.'.$picture->guessExtension();
+            $picture->move(
+                $this->getParameter('images_directory'),$newFileName
+            );
+            $user->setPicture($newFileName);
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success','profile updated');

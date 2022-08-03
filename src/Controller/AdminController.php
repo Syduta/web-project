@@ -29,6 +29,14 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()&&$form->isValid()){
+            $picture = $form->get('picture')->getData();
+            $originalFileName = pathinfo($picture->getClientOriginalName(),PATHINFO_FILENAME);
+            $safeFileName = $slugger->slug($originalFileName);
+            $newFileName = $safeFileName.'-'.uniqid().'.'.$picture->guessExtension();
+            $picture->move(
+                $this->getParameter('images_directory'),$newFileName
+            );
+            $actu->setPicture($newFileName);
             $entityManager->persist($actu);
             $entityManager->flush();
             $this->addFlash('success','news added');
@@ -57,12 +65,20 @@ class AdminController extends AbstractController
      * @Route("/admin/update-actu/{id}",name="admin-update-actu")
      */
 
-    public function updateActu($id, ActualityRepository $actualityRepository, EntityManagerInterface $entityManager, Request $request){
+    public function updateActu($id, ActualityRepository $actualityRepository, EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger){
         $actu = $actualityRepository->find($id);
         $form = $this->createForm(ActualityType::class,$actu);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $picture = $form->get('picture')->getData();
+            $originalFileName = pathinfo($picture->getClientOriginalName(),PATHINFO_FILENAME);
+            $safeFileName = $slugger->slug($originalFileName);
+            $newFileName = $safeFileName.'-'.uniqid().'.'.$picture->guessExtension();
+            $picture->move(
+                $this->getParameter('images_directory'),$newFileName
+            );
+            $actu->setPicture($newFileName);
             $entityManager->persist($actu);
             $entityManager->flush();
             $this->addFlash('success','new updated');
@@ -81,6 +97,14 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()&&$form->isValid()){
+            $picture = $form->get('picture')->getData();
+            $originalFileName = pathinfo($picture->getClientOriginalName(),PATHINFO_FILENAME);
+            $safeFileName = $slugger->slug($originalFileName);
+            $newFileName = $safeFileName.'-'.uniqid().'.'.$picture->guessExtension();
+            $picture->move(
+                $this->getParameter('images_directory'),$newFileName
+            );
+            $forum->setPicture($newFileName);
             $entityManager->persist($forum);
             $entityManager->flush();
             $this->addFlash('success','forum created');
@@ -109,12 +133,20 @@ class AdminController extends AbstractController
      * @Route("/admin/update-forum/{id}",name="admin-update-forum")
      */
 
-    public function updateForum($id, ForumRepository $forumRepository, EntityManagerInterface $entityManager, Request $request){
+    public function updateForum($id, ForumRepository $forumRepository, EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger){
         $forum = $forumRepository->find($id);
         $form = $this->createForm(ForumType::class,$forum);
         $form->handleRequest($request);
 
         if($form->isSubmitted()&&$form->isValid()){
+            $picture = $form->get('picture')->getData();
+            $originalFileName = pathinfo($picture->getClientOriginalName(),PATHINFO_FILENAME);
+            $safeFileName = $slugger->slug($originalFileName);
+            $newFileName = $safeFileName.'-'.uniqid().'.'.$picture->guessExtension();
+            $picture->move(
+                $this->getParameter('images_directory'),$newFileName
+            );
+            $forum->setPicture($newFileName);
             $entityManager->persist($forum);
             $entityManager->flush();
             $this->addFlash('success','forum updated');

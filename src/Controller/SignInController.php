@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class SignInController extends AbstractController
 {
@@ -16,13 +17,21 @@ class SignInController extends AbstractController
      * @Route("/sign-in",name="sign-in")
      */
 
-    public function signIn(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager){
+    public function signIn(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SluggerInterface $slugger){
         $user = new User();
         $user->setRoles(['ROLE_USER']);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()&&$form->isValid()){
+            $picture = $form->get('picture')->getData();
+            $originalFileName = pathinfo($picture->getClientOriginalName(),PATHINFO_FILENAME);
+            $safeFileName = $slugger->slug($originalFileName);
+            $newFileName = $safeFileName.'-'.uniqid().'.'.$picture->guessExtension();
+            $picture->move(
+                $this->getParameter('images_directory'),$newFileName
+            );
+            $user->setImage($newFileName);
             $plainPassword=$form->get('password')->getData();
             $hashedPassword = $userPasswordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Forum;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +16,7 @@ class ForumType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('picture')
+            ->add('picture',FileType::class,['mapped'=>false])
 //            ->add('user')
             ->add('submit',SubmitType::class)
         ;

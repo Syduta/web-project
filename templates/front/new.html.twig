@@ -5,7 +5,7 @@
     <article>
             <h2>{{ new.title }}</h2>
             {% if new.picture %}
-                <img src="{{ new.picture }}" alt="picture of the subject">
+                <img src="{{ asset('uploads/images/')~new.picture }}" alt="picture of the subject">
             {% endif %}
         <p>{{ new.content }}</p>
     </article>

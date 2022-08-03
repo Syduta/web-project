@@ -5,7 +5,7 @@
     <article>
         <h2>{{ forum.title }}</h2>
         {% if forum.picture %}
-            <img src="{{ forum.picture }}" alt="picture of the subject">
+            <img src="{{ asset('uploads/images/')~forum.picture }}" alt="picture of the subject">
         {% endif %}
         <p>{{ forum.content }}</p>
     </article>
@@ -13,14 +13,14 @@
     {{ form(form) }}{% endif %}
     {% for subject in forum.subjects %}
     <article>
-        <h3>{{ subject.title }}</h3>
+        <h4>{{ subject.title }}</h4>
         <p>{{ subject.content }}</p>
         <p>subject opened the {{ subject.date|date('M-d-y') }}</p>
         {% if app.user %}<a href="{{ path('comment',{'id':subject.id}) }}">Add a comment</a>{% endif %}
     </article>
     {% for comment in subject.comment %}
     <article>
-        <h4>{{ comment.comment }}</h4>
+        <h5>{{ comment.comment }}</h5>
         <p>by {{ comment.user.pseudo }}</p>
         <p>comment added the {{ comment.date|date('M-d-y') }}</p>
     </article>

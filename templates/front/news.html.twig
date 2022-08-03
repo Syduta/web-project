@@ -8,7 +8,7 @@
                 <a href="{{ path('new',{'id':new.id}) }}">
                 <h2>{{ new.title }}</h2>
                 {% if new.picture %}
-                <img src="{{ new.picture }}" alt="picture of the subject">
+                <img src="{{ asset('uploads/images/'~new.picture) }}" alt="picture of the subject">
                 {% endif %}
                 </a>
                 <p>{{ new.content }}</p>
