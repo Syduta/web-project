@@ -56,6 +56,7 @@ class FrontController extends AbstractController
         $forum = $forumRepository->find($id);
         $subject = new Subject();
         $subject->setUser($this->getUser());
+        $subject->setDate(new \DateTime('NOW'));
         $subject->setForum($forum);
         $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
@@ -79,6 +80,7 @@ class FrontController extends AbstractController
         $subject = $subjectRepository->find($id);
         $comment = new Comment();
         $comment->setUser($this->getUser());
+        $comment->setDate(new \DateTime('NOW'));
         $comment->setSubject($subject);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -87,13 +89,17 @@ class FrontController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
             $this->addFlash('success', 'comment added');
-            $this->redirectToRoute('forum');
+//            $this->redirectToRoute('forum');
         }
         return $this->render('front/comment.html.twig',[
             'subject'=>$subject,
             'form'=>$form->createView(),
         ]);
+
     }
+
+
+
     /**
      * @Route("/update-profile",name="update-profile")
      */
