@@ -16,7 +16,7 @@
             <a href="{{ path('new',{'id':new.id}) }}">
                 <h2>{{ new.title }}</h2>
                 {% if new.picture %}
-                    <img src="{{ new.picture }}" alt="picture of the subject">
+                    <img src="{{ asset('uploads/images/')~new.picture }}" alt="picture of the subject">
                 {% endif %}
             </a>
             <p>{{ new.content }}</p>
@@ -28,7 +28,7 @@
             <a href="{{ path('forum',{'id':forum.id}) }}">
                 <h2>{{ forum.title }}</h2>
                 {% if forum.picture %}
-                    <img src="{{ forum.picture }}" alt="picture of the subject">
+                    <img src="{{ asset('uploads/images/')~forum.picture }}" alt="picture of the subject">
                 {% endif %}
             </a>
             <p>{{ forum.content }}</p>

@@ -31,7 +31,7 @@ class SignInController extends AbstractController
             $picture->move(
                 $this->getParameter('images_directory'),$newFileName
             );
-            $user->setImage($newFileName);
+            $user->setPicture($newFileName);
             $plainPassword=$form->get('password')->getData();
             $hashedPassword = $userPasswordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);

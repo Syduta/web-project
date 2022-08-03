@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <h1>Welcome {% if app.user %} {{ app.user.pseudo }} <img style="width: 2vw" src="{{ asset('uploads/images/'~app.user.picture)}}" alt=""> {% endif %} on this place where we love video-games</h1>
+    <h1 class="text-center">Welcome {% if app.user %} {{ app.user.pseudo }} <img style="width: 3vw" src="{{ asset('uploads/images/'~app.user.picture)}}" alt=""> {% endif %} on this place where we love video-games</h1>
 
-
-
+    <h3 class="offset-1 col-10">Fresh News</h3>
     {% for new in news %}
-
-        <article>
+        <article id="news">
+            <div class="news">
             <a href="{{ path('new',{'id':new.id}) }}">
                 <h2>{{ new.title }}</h2>
                 {% if new.picture %}
-                    <img src="{{ asset('uploads/images/'~new.picture) }}" alt="picture of the subject">
+                    <img class="img-responsive" src="{{ asset('uploads/images/'~new.picture) }}" alt="picture of the subject">
                 {% endif %}
             </a>
             <p>{{ new.content }}</p>
+            </div>
         </article>
         {% if is_granted('ROLE_ADMIN') %}
             <li><a href="{{ path('admin-delete-actu',{'id':new.id}) }}">Delete actu</a></li>
@@ -26,7 +26,7 @@
         <article>
             <a href="{{ path('game',{'id':game.id}) }}">
                 <h2>{{ game.name }}</h2>
-                <img style="width: 25vw" src="{{ game.background_image }}" alt="">
+                <img class="img-responsive" style="width: 25vw" src="{{ game.background_image }}" alt="">
             </a>
             {% for tag in game.tags |slice(5,10) %}
                 {% if tag.language is same as ('eng') %}
@@ -42,6 +42,3 @@
 
 
 {% endblock %}
-
-{#$games = $gameApi->getGames();#}
-{#dd($gameApi->getGames());#}

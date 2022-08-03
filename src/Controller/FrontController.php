@@ -16,6 +16,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -105,7 +106,7 @@ class FrontController extends AbstractController
      * @Route("/update-profile",name="update-profile")
      */
 
-    public function updateProfile( Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger){
+    public function updateProfile( Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, UserPasswordHasherInterface $userPasswordHasher){
         $user= $this->getUser();
         $form= $this->createForm(UserType::class,$user);
         $form->handleRequest($request);
@@ -119,6 +120,9 @@ class FrontController extends AbstractController
                 $this->getParameter('images_directory'),$newFileName
             );
             $user->setPicture($newFileName);
+            $plainPassword=$form->get('password')->getData();
+            $hashedPassword = $userPasswordHasher->hashPassword($user, $plainPassword);
+            $user->setPassword($hashedPassword);
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success','profile updated');
