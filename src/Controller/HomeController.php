@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         return $this->render('home.html.twig',[
             'games'=>$games,
             'news'=>$news,
-            'forums'=>$forums
+            'forums'=>$forums,
         ]);
     }
 }

@@ -106,6 +106,14 @@ h3 {
   text-align: center;
 }
 
+.carousel {
+  margin-top: 4rem;
+}
+
+.car-img {
+  height: 70vh;
+}
+
 * {
   margin: 0;
   padding: 0;
