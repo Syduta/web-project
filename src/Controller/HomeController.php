@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ActualityRepository;
 use App\Repository\ForumRepository;
 use App\Services\GameApi;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,7 @@ class HomeController extends AbstractController
      * @Route("/",name="home")
      */
 
-    public function home(GameApi $gameApi, ActualityRepository $actualityRepository, ForumRepository $forumRepository){
+    public function home(GameApi $gameApi, ActualityRepository $actualityRepository, ForumRepository $forumRepository, Paginator $paginator){
 
 //        dd($gameApi->getGames());
         $games = $gameApi->getGamesHome();
