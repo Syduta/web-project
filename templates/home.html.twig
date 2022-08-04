@@ -9,7 +9,7 @@
 
     <h3 class="offset-1 col-10">Fresh News</h3>
     <section id="carousel">
-        <div id="carouselExampleIndicators" class="carousel slide offset-3 col-6" data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide offset-2 col-8" data-ride="carousel">
             <ol class="carousel-indicators">
                 {% for new in news %}
                 <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.index0 ==0 %} class="active"{% endif %}></li>
