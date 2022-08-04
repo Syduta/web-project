@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ActualityRepository;
+use App\Repository\ForumRepository;
 use App\Services\GameApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,14 +15,16 @@ class HomeController extends AbstractController
      * @Route("/",name="home")
      */
 
-    public function home(GameApi $gameApi, ActualityRepository $actualityRepository){
+    public function home(GameApi $gameApi, ActualityRepository $actualityRepository, ForumRepository $forumRepository){
 
 //        dd($gameApi->getGames());
         $games = $gameApi->getGamesHome();
         $news = $actualityRepository->findAll();
+        $forums = $forumRepository->findAll();
         return $this->render('home.html.twig',[
             'games'=>$games,
-            'news'=>$news
+            'news'=>$news,
+            'forums'=>$forums
         ]);
     }
 }

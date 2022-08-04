@@ -21,10 +21,99 @@ nav a:hover {
   color: #22B99A;
 }
 
+h1, h4 {
+  color: #204C52;
+}
+
+#news {
+  display: flex;
+  display: inline-block;
+  padding: 2vw;
+  margin: 2vw 2vw;
+}
+
+.news {
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.news img {
+  width: 15vw;
+  height: 20vh;
+  border-radius: 10%;
+}
+
+.news p, h4 {
+  width: 15vw;
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+  background-color: #22B99A;
+  color: #FFFFFF;
+  border: solid 1px #204C52;
+  padding: 0.5rem 0;
+  margin-top: 2rem;
+}
+
+#games {
+  display: flex;
+  display: inline-block;
+  padding: 2vw;
+  margin: 2vw 2vw;
+}
+
+.games {
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.games img {
+  width: 15vw;
+  height: 20vh;
+  border-radius: 10%;
+}
+
+.games p, h4 {
+  width: 15vw;
+  text-align: center;
+}
+
+#forums {
+  display: flex;
+  display: inline-block;
+  padding: 2vw;
+  margin: 2vw 2vw;
+}
+
+.forums {
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.forums img {
+  width: 15vw;
+  height: 20vh;
+  border-radius: 10%;
+}
+
+.forums p, h4 {
+  width: 15vw;
+  text-align: center;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
 }
 
 .logo {
@@ -46,40 +135,6 @@ nav a:hover {
   border: solid 2px #22B99A;
   position: absolute;
   bottom: 25%;
-}
-
-#news {
-  display: flex;
-  display: inline-block;
-  padding: 2vw;
-  margin: 0 2vw;
-}
-
-.news {
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.news img {
-  width: 15vw;
-  height: 20vh;
-  border-radius: 10%;
-}
-
-.news p, h2 {
-  width: 15vw;
-  text-align: center;
-}
-
-h3 {
-  text-align: center;
-  background-color: #22B99A;
-  color: #FFFFFF;
-  border: solid 1px #204C52;
-  border-radius: 70%;
-  padding: 0.5rem 0;
-  margin-top: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */
