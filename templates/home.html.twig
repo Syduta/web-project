@@ -2,9 +2,9 @@
 
 {% block main %}
 
-    <h1 class="text-center">Welcome {% if app.user %} {{ app.user.pseudo }} <img style="width: 3vw"
+    <h1 class="text-center">Welcome {% if app.user %} {{ app.user.pseudo }} <a href="{{ path('update-profile') }}"><img style="width: 3vw"
                                                                                  src="{{ asset('uploads/images/'~app.user.picture) }}"
-                                                                                 alt=""> {% endif %} on this place where
+                                                                                 alt=""></a> {% endif %} on this place where
         we love video-games</h1>
 
     <h3 class="offset-1 col-10">Fresh News</h3>
@@ -16,7 +16,7 @@
                 {% endfor %}
             </ol>
             <div class="carousel-inner">
-                {% for new in news %}
+                {% for new in news |slice (0,4) %}
                 <div class="carousel-item {% if loop.index0 ==0 %} active {% endif %}">
                     <a href="{{ path('new',{'id':new.id}) }}"><img class="car-img d-block w-100" src="{{ asset('uploads/images/'~new.picture) }}" alt="{{ new.title }}"></a>
                     <div class="carousel-caption d-none d-md-block">
@@ -35,7 +35,8 @@
             </a>
         </div>
     </section>
-    {% for new in news %}
+    <div class="offset-2 col-10">
+    {% for new in news |slice (4,12) %}
         <article id="news">
             <div class="news">
                 <a href="{{ path('new',{'id':new.id}) }}">
@@ -54,6 +55,7 @@
         {% endif %}
 
     {% endfor %}
+    </div>
     <h3 class="offset-1 col-10">Hot Games</h3>
     {% for game in games.results %}
         <article id="games">

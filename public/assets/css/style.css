@@ -26,14 +26,12 @@ h1, h4 {
 }
 
 #news {
-  display: flex;
   display: inline-block;
-  padding: 2vw;
-  margin: 2vw 2vw;
+  padding: 3vw;
+  margin: auto;
 }
 
 .news {
-  justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
 }
@@ -118,6 +116,10 @@ h3 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-image: url("../img/greypattern.jpg");
 }
 
 a {

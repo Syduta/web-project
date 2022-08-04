@@ -40,7 +40,7 @@
 
     {% for message in app.flashes('success') %}
         <div>
-            <h3>{{ message }}</h3>
+            {% if app.user %}<h3>{{ message }}</h3>{% endif %}
         </div>
     {% endfor %}
 </header>
